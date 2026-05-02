@@ -1,0 +1,392 @@
+:root {
+  --bg: #f8f1e8;
+  --bg-soft: #fff9f1;
+  --ink: #4a2d1f;
+  --accent: #ffb86f;
+  --accent-2: #ffcfe0;
+  --line: #7d5b46;
+}
+
+.night {
+  --bg: #1f1a2e;
+  --bg-soft: #2c2440;
+  --ink: #f6e9ff;
+  --line: #b694dd;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  display: grid;
+  place-items: center;
+  padding: 24px;
+  background: radial-gradient(circle at top, #fffdf9 0%, var(--bg) 60%);
+  font-family: "Press Start 2P", system-ui, sans-serif;
+  color: var(--ink);
+}
+
+.game-card {
+  width: min(100%, 640px);
+  background: var(--bg-soft);
+  border: 4px solid var(--line);
+  box-shadow: 8px 8px 0 #d8c0a9;
+  padding: 24px;
+  text-align: center;
+}
+
+.pixel-label {
+  margin: 0 0 14px;
+  font-size: 0.55rem;
+  color: #966744;
+}
+
+h1 {
+  margin: 0 0 22px;
+  font-size: clamp(0.9rem, 3vw, 1.3rem);
+  line-height: 1.6;
+}
+
+.cat-zone {
+  position: relative;
+  overflow: hidden;
+  border: 4px solid var(--line);
+  background: #fff7ef;
+  padding: 18px 16px;
+  box-shadow: inset 0 0 0 4px #f5e4d4;
+}
+
+.night .cat-zone {
+  background: #2b2340;
+  box-shadow: inset 0 0 0 4px #4a3d69;
+}
+
+.cat-display {
+  display: grid;
+  place-items: center;
+  min-height: 150px;
+  margin-bottom: 14px;
+  transition: transform 0.2s ease;
+}
+
+.mood-text {
+  position: relative;
+  z-index: 2;
+  margin: 0;
+  font-size: clamp(0.56rem, 2vw, 0.68rem);
+  line-height: 1.8;
+  min-height: 2.8em;
+}
+
+.night .mood-text {
+  color: #f9eeff;
+  text-shadow: 0 0 6px rgba(228, 191, 255, 0.45);
+}
+
+.pixel-cat {
+  position: relative;
+  width: 192px;
+  height: 192px;
+  transform-origin: center bottom;
+  image-rendering: pixelated;
+  background-image: url("assets/nami-sprite.svg");
+  background-repeat: no-repeat;
+  background-size: 1536px 384px;
+  background-position: 0 0;
+  animation: sprite-idle 1s steps(2, end) infinite;
+}
+
+.pixel-cat.is-play {
+  animation: sprite-play 0.55s steps(2, end) infinite;
+}
+
+.pixel-cat.is-feed {
+  animation: sprite-feed 0.45s steps(2, end) 3;
+}
+
+.pixel-cat.is-pet,
+.pixel-cat.is-rest {
+  animation: sprite-pet 0.8s steps(2, end) infinite;
+}
+
+.pixel-cat.is-night-sleep {
+  animation: sprite-sleep 1s steps(2, end) infinite;
+}
+
+.sleep-bubble {
+  position: absolute;
+  top: 18px;
+  right: 26%;
+  z-index: 3;
+  font-size: 0.58rem;
+  color: #e9d8ff;
+  opacity: 0;
+  text-shadow: 0 0 6px rgba(175, 139, 223, 0.7);
+  pointer-events: none;
+}
+
+.night .sleep-bubble {
+  animation: sleep-float 1.2s steps(2, end) infinite;
+}
+
+.pixel-cat.is-hungry {
+  filter: drop-shadow(0 0 4px rgba(255, 215, 115, 0.45));
+}
+
+.pixel-cat.is-sad {
+  filter: drop-shadow(0 0 4px rgba(255, 153, 201, 0.4));
+}
+
+.particles {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.particle {
+  position: absolute;
+  left: 50%;
+  top: 58%;
+  font-size: 1rem;
+  opacity: 0;
+  animation: float-pop 900ms steps(2, end) forwards;
+}
+
+.stats-panel {
+  margin-top: 16px;
+  border: 4px solid var(--line);
+  background: #fff6eb;
+  padding: 12px;
+}
+
+.night .stats-panel {
+  background: #3a2f52;
+}
+
+.stat-row {
+  display: grid;
+  grid-template-columns: 90px 1fr;
+  align-items: center;
+  gap: 10px;
+  margin: 8px 0;
+  font-size: 0.5rem;
+  text-align: left;
+}
+
+.stat-track {
+  height: 14px;
+  border: 3px solid var(--line);
+  background: #f0decd;
+  box-shadow: inset 0 0 0 2px #e7cdb4;
+}
+
+.night .stat-track {
+  background: #59487d;
+  box-shadow: inset 0 0 0 2px #4a3a6b;
+}
+
+.stat-fill {
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, #ffd38f 0%, #ffb86f 100%);
+}
+
+.stat-fill.pink {
+  background: linear-gradient(90deg, #ffd4e2 0%, #ffafc8 100%);
+}
+
+.stat-fill.blue {
+  background: linear-gradient(90deg, #cbf2ff 0%, #9adfff 100%);
+}
+
+.action-panel {
+  margin-top: 20px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 12px;
+}
+
+.pixel-btn {
+  border: 3px solid var(--line);
+  background: var(--accent);
+  color: #4a2d1f;
+  font: inherit;
+  font-size: 0.62rem;
+  padding: 12px 16px;
+  cursor: pointer;
+  box-shadow: 3px 3px 0 #b6824d;
+  transition: transform 0.08s ease, box-shadow 0.08s ease, background 0.2s ease;
+}
+
+.pixel-btn:nth-child(2) {
+  background: #ffc4da;
+  box-shadow: 3px 3px 0 #cc8ba3;
+}
+
+.pixel-btn:nth-child(3) {
+  background: #b7ecff;
+  box-shadow: 3px 3px 0 #7eb8cb;
+}
+
+.night-btn {
+  background: #ddd0ff;
+  box-shadow: 3px 3px 0 #9788bc;
+}
+
+.pixel-btn:hover {
+  transform: translate(-1px, -1px);
+}
+
+.pixel-btn:active {
+  transform: translate(2px, 2px);
+  box-shadow: 1px 1px 0 #7a5736;
+}
+
+.bounce {
+  animation: bounce 0.45s steps(2, end) 2;
+}
+
+.wiggle {
+  animation: wiggle 0.5s steps(2, end) 2;
+}
+
+.purr {
+  animation: purr 0.55s steps(2, end) 2;
+}
+
+.sparkle {
+  animation: sparkle 0.35s steps(2, end) 2;
+}
+
+@keyframes bounce {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+@keyframes wiggle {
+  0%,
+  100% {
+    transform: rotate(0deg);
+  }
+  30% {
+    transform: rotate(-4deg);
+  }
+  70% {
+    transform: rotate(4deg);
+  }
+}
+
+@keyframes purr {
+  0%,
+  100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.08);
+  }
+}
+
+@keyframes sparkle {
+  0%,
+  100% {
+    filter: brightness(1);
+  }
+  50% {
+    filter: brightness(1.35);
+  }
+}
+
+@keyframes float-pop {
+  0% {
+    transform: translate(-50%, -10%) scale(0.5);
+    opacity: 0;
+  }
+  20% {
+    opacity: 1;
+  }
+  100% {
+    transform: translate(var(--drift-x), var(--drift-y)) scale(1.1);
+    opacity: 0;
+  }
+}
+
+@keyframes sprite-idle {
+  0%,
+  49.9% {
+    background-position: 0 0;
+  }
+  50% {
+    background-position: -192px 0;
+  }
+  100% {
+    background-position: -192px 0;
+  }
+}
+
+@keyframes sprite-play {
+  0%,
+  49.9% {
+    background-position: -384px 0;
+  }
+  50%,
+  100% {
+    background-position: -576px 0;
+  }
+}
+
+@keyframes sprite-feed {
+  0%,
+  49.9% {
+    background-position: -768px 0;
+  }
+  50%,
+  100% {
+    background-position: -960px 0;
+  }
+}
+
+@keyframes sprite-pet {
+  0%,
+  49.9% {
+    background-position: -1152px 0;
+  }
+  50%,
+  100% {
+    background-position: -1344px 0;
+  }
+}
+
+@keyframes sprite-sleep {
+  0%,
+  49.9% {
+    background-position: 0 -192px;
+  }
+  50%,
+  100% {
+    background-position: -192px -192px;
+  }
+}
+
+@keyframes sleep-float {
+  0% {
+    transform: translateY(6px);
+    opacity: 0;
+  }
+  20% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(-4px);
+    opacity: 0;
+  }
+}

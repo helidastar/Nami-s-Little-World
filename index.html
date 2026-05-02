@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Nami's Cozy Cat Corner</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <main class="game-card">
+      <p class="pixel-label">Pixel Pet Room</p>
+      <h1>Nami's Little Cat World</h1>
+
+      <section class="cat-zone" aria-live="polite">
+        <div class="cat-display" id="catDisplay" role="img" aria-label="Cat mood">
+          <div class="pixel-cat is-idle" id="pixelCat" aria-hidden="true"></div>
+          <span class="sleep-bubble" id="sleepBubble" aria-hidden="true">ZzZ</span>
+        </div>
+        <div class="particles" id="particles" aria-hidden="true"></div>
+        <p class="mood-text" id="moodText">Nami is waiting for you...</p>
+      </section>
+
+      <section class="stats-panel" aria-label="Cat needs">
+        <div class="stat-row">
+          <span>Hunger</span>
+          <div class="stat-track"><div class="stat-fill" id="hungerFill"></div></div>
+        </div>
+        <div class="stat-row">
+          <span>Happiness</span>
+          <div class="stat-track"><div class="stat-fill pink" id="happyFill"></div></div>
+        </div>
+        <div class="stat-row">
+          <span>Energy</span>
+          <div class="stat-track"><div class="stat-fill blue" id="energyFill"></div></div>
+        </div>
+      </section>
+
+      <section class="action-panel" aria-label="Cat actions">
+        <button class="pixel-btn" data-action="feed">Feed</button>
+        <button class="pixel-btn" data-action="pet">Pet</button>
+        <button class="pixel-btn" data-action="play">Play</button>
+        <button class="pixel-btn night-btn" id="themeToggle" type="button">Night</button>
+      </section>
+    </main>
+
+    <script src="script.js"></script>
+  </body>
+</html>
